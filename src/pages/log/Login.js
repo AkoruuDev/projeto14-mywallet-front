@@ -3,9 +3,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-// pages
-import Register from "./Register";
-
 export default function Login() {
     const [login, setLogin] = useState();
     const [send, setSend] = useState(false);
@@ -27,7 +24,7 @@ export default function Login() {
     console.log(login)
     return (
         <Container>
-            <h1>MyWallet</h1>
+            <Title>MyWallet</Title>
             <Form onSubmit={submitThis}>
                 <Input type={"email"} name={"email"} onChange=
                     {(e) => makeLogin({
@@ -51,13 +48,67 @@ export default function Login() {
 }
 
 const Container = styled.div`
+    width: 100vw;
+    height: 100vh;
+    background-color: #8c11be;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`
+
+const Title = styled.h1`
+    font-size: 50px;
+    color: #FFFFFF;
+    margin: 25px 0;
+    font-family: 'Saira Stencil One', cursive;
 `
 
 const Form = styled.form`
+    width: 70vw;
+
+    display: flex;
+    flex-direction: column;
 `
 
 const Input = styled.input`
+    width: 100%;
+    height: 50px;
+    border-radius: 5px;
+    border: solid 1px #FFFFFF;
+    margin: 7px 0;
+    padding: 0 12px;
+    font-family: 'Raleway', sans-serif;
+
+    &::placeholder {
+        font-family: 'Raleway', sans-serif;
+    }
 `
 
 const Button = styled.button`
+    width: 100%;
+    height: 50px;
+    border-radius: 5px;
+    border: solid 1px #A328D6;
+    color: #FFFFFF;
+    font-weight: 700;
+    background-color: #A328D6;
+    margin: 7px 0;
+    font-family: 'Raleway', sans-serif;
+
+    &:hover {
+        cursor: pointer;
+        background-color: #B121EA;
+    }
+`
+
+const Register = styled.p`
+    font-family: 'Raleway', sans-serif;
+    margin-top: 15px;
+
+    &:hover {
+        cursor: pointer;
+        color: #CB63F4;
+    }
 `
