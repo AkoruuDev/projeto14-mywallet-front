@@ -1,10 +1,13 @@
 // tools
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 export default function Outputs() {
     const [newOutput, setNewOutput] = useState({});
     const [send, setSend] = useState(false);
+
+    const navigate = useNavigate();
 
     function saveOutput({ name, value }) {
         setNewOutput({
@@ -38,6 +41,7 @@ export default function Outputs() {
                     }
                 placeholder={"Descrição"} />
                 <Button type={"submit"}>SALVAR SAÍDA</Button>
+                <Cancel onClick={() => navigate('/home')}>CANCELAR</Cancel>
             </Form>
         </Container>
     );
@@ -97,5 +101,13 @@ const Button = styled.button`
     &:hover {
         cursor: pointer;
         background-color: #B121EA;
+    }
+`
+
+const Cancel = styled(Button)`
+    background-color: #c7c7c7;
+
+    &:hover {
+        background-color: #b3b3b3;
     }
 `
