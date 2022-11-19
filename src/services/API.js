@@ -32,16 +32,11 @@ function newInput(token, body) {
     return promise;
 }
 
-function newOutput(title, description, value, token) {
-    const body = {
-        title,
-        description,
-        value
-    }
+function newOutput( token, body ) {
     const headers = {
         authorization: `Bearer ${token}`
     };
-    const promise = axios.post(`${BASE_URL}/new-output`, body, headers);
+    const promise = axios.post(`${BASE_URL}/new-output`, body, {headers});
 
     return promise;
 }

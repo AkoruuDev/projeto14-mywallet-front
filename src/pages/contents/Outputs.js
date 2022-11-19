@@ -1,11 +1,14 @@
 // tools
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { AuthContext } from "../../provider/auth";
+import { newOutput as sendRequest } from "../../services/API";
 
 export default function Outputs() {
     const [newOutput, setNewOutput] = useState({});
     const [send, setSend] = useState(false);
+    const { user } = useContext(AuthContext);
 
     const navigate = useNavigate();
 
@@ -20,6 +23,19 @@ export default function Outputs() {
         event.preventDefault();
         setSend(true);
     }
+
+    useEffect(() => {
+        if (send) {
+            sendRequest(user.token, newOutput)
+                .then(res => {
+                    console.log(res)
+                    navigate('/home')
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        }
+    }, [send]);
 
     console.log(newOutput)
     return (
