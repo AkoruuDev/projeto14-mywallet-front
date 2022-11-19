@@ -1,12 +1,15 @@
 // tools
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { AuthContext } from "../../provider/auth";
 import { signIn } from "../../services/API";
 
 export default function Login() {
-    const [login, setLogin] = useState();
-    const [send, setSend] = useState(false);
+    const [ login, setLogin ] = useState();
+    const [ send, setSend ] = useState(false);
+
+    const { user, setUser } = useContext(AuthContext);
 
     const navigate = useNavigate();
 
@@ -27,7 +30,13 @@ export default function Login() {
             signIn(login)
                 .then(res => {
                     console.log(res);
-                    navigate('/home')
+                    setUser({
+                        name: res.data.name,
+                        email: res.data.email,
+                        token: res.data.token
+                    })
+                    console.log(user)
+                    navigate('/home');
                 })
                 .catch(err => {
                     console.log(err)
@@ -35,6 +44,8 @@ export default function Login() {
                 })
         }
     }, [send]);
+
+    console.log(user)
 
     return (
         <Container>
