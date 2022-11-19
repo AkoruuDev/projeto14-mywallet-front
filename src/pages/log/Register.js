@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { signUp } from "../../services/API";
 
 export default function Register() {
     const [register, setRegister] = useState();
+    const [validate, setValidate] = useState();
     const [send, setSend] = useState(false);
 
     const navigate = useNavigate();
@@ -15,11 +17,36 @@ export default function Register() {
         });
     }
 
-    function submitThis(event) {
-        event.preventDefault();
-        setSend(true)
+    function confirmThisPassword({ value, name }) {
+        setValidate({
+          ...validate,
+          [name]: value,
+        });
     }
 
+    function submitThis(event) {
+        event.preventDefault();
+        if (register.password === validate.passwordConfirm) {
+            setSend(true)
+        } else {
+            console.log('Senhas erradas')
+        }
+    }
+
+    useEffect(() => {
+        if (send) {
+            signUp(register)
+                .then(res => {
+                    console.log(res);
+                    navigate('/')
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+    }, [send]);
+
+    console.log(register)
     return (
         <Container>
             <Title>MyWallet</Title>
@@ -46,7 +73,7 @@ export default function Register() {
                     }
                 placeholder={"Senha"} />
                 <Input type={"password"} name={"passwordConfirm"} onChange=
-                    {(e) => createRegister({
+                    {(e) => confirmThisPassword({
                             name: e.target.name,
                             value: e.target.value
                         })

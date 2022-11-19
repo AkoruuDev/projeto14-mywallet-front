@@ -1,24 +1,15 @@
 import axios from "axios"
 
-const BASE_URL = 'localhost:3000'
+const BASE_URL = 'mongo://localhost:3000'
 
-function signIn(email, password) {
-    const user = {
-        email,
-        password
-    }
-    const promise = axios.post(`${BASE_URL}/`, user);
+function signIn(login) {
+    const promise = axios.post(`${BASE_URL}/`, login);
 
     return promise;
 }
 
-function signUp(name, email, password) {
-    const user = {
-        name,
-        email,
-        password
-    };
-    const promise = axios.post(`${BASE_URL}/sign-up`, user);
+function signUp(register) {
+    const promise = axios.post(`${BASE_URL}/sign-up`, register);
 
     return promise;
 }
@@ -33,12 +24,12 @@ function historic(token) {
 }
 
 function newInput(title, description, value, token) {
-    body = {
+    const body = {
         title,
         description,
         value
     }
-    headers = {
+    const headers = {
         authorization: `Bearer ${token}`
     };
     const promise = axios.post(`${BASE_URL}/new-input`, body, headers);
@@ -47,12 +38,12 @@ function newInput(title, description, value, token) {
 }
 
 function newOutput(title, description, value, token) {
-    body = {
+    const body = {
         title,
         description,
         value
     }
-    headers = {
+    const headers = {
         authorization: `Bearer ${token}`
     };
     const promise = axios.post(`${BASE_URL}/new-output`, body, headers);

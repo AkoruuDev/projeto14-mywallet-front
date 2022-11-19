@@ -1,7 +1,8 @@
 // tools
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { signIn } from "../../services/API";
 
 export default function Login() {
     const [login, setLogin] = useState();
@@ -20,6 +21,19 @@ export default function Login() {
         event.preventDefault();
         setSend(true)
     }
+
+    useEffect(() => {
+        if (send) {
+            signIn(login)
+                .then(res => {
+                    console.log(res);
+                    navigate('/home')
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        }
+    }, [send]);
 
     console.log(login)
     return (
