@@ -23,16 +23,11 @@ function historic(token) {
     return promise;
 }
 
-function newInput(title, description, value, token) {
-    const body = {
-        title,
-        description,
-        value
-    }
+function newInput(token, body) {
     const headers = {
         authorization: `Bearer ${token}`
     };
-    const promise = axios.post(`${BASE_URL}/new-input`, body, headers);
+    const promise = axios.post(`${BASE_URL}/input`, body, {headers});
 
     return promise;
 }
