@@ -1,9 +1,9 @@
 import axios from "axios"
 
-const BASE_URL = 'mongo://localhost:3000'
+const BASE_URL = 'http://localhost:5000'
 
 function signIn(login) {
-    const promise = axios.post(`${BASE_URL}/`, login);
+    const promise = axios.post(`${BASE_URL}/sign-in`, login);
 
     return promise;
 }
