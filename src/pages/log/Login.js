@@ -31,11 +31,11 @@ export default function Login() {
                 })
                 .catch(err => {
                     console.log(err)
+                    document.location.reload();
                 })
         }
     }, [send]);
 
-    console.log(login)
     return (
         <Container>
             <Title>MyWallet</Title>

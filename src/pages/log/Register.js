@@ -42,11 +42,11 @@ export default function Register() {
                 })
                 .catch(err => {
                     console.log(err);
+                    document.location.reload()
                 })
         }
     }, [send]);
 
-    console.log(register)
     return (
         <Container>
             <Title>MyWallet</Title>
