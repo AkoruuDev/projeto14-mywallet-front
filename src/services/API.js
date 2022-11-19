@@ -18,7 +18,7 @@ function historic(token) {
     const headers = {
         authorization: `Bearer ${token}`
     };
-    const promise = axios.get(`${BASE_URL}/historic`, headers);
+    const promise = axios.get(`${BASE_URL}/historic`, {headers});
 
     return promise;
 }

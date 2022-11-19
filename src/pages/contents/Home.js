@@ -4,18 +4,55 @@ import add from "../../assets/add-button.svg";
 import remove from "../../assets/remove-button.svg";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../provider/auth";
+import { historic } from "../../services/API";
+
+function List({ item, total, setTotal }) {
+    const newValue = Number(total) + Number(item.value);
+    setTotal(Number(newValue));
+    return(
+        <div>
+            <p>date</p>
+            <p>title</p>
+            <p>value</p>
+        </div>
+    )
+}
 
 export default function Home() {
     const navigate = useNavigate();
+    const { user } = useContext(AuthContext);
+    const [ total, setTotal ] = useState(0);
+    const [ userList, setUserList ] = useState();
+    console.log(user)
+
+    useEffect(() => {
+        historic(user.token)
+            .then(res => {
+                console.log(res.data);
+                setUserList(res.data);
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }, []);
+
 
     return (
         <Container>
             <Header>
-                <h1>{`Olá, ${"name"}`}</h1>
+                <h1>{`Olá, ${user.name}`}</h1>
                 <img src={exit} alt="exit-icon" />
             </Header>
             <Historic>
-
+                {userList?.map((item, i) => {
+                    <List key={i} item={item} setTotal={setTotal} total={total}/>
+                })}
+                <div>
+                    <p>Total</p>
+                    <p>{total}</p>
+                </div>
             </Historic>
             <Register>
                 <Box onClick={() => navigate('/new-input')}>
