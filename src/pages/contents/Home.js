@@ -42,13 +42,17 @@ export default function Home() {
                 }} />
             </Header>
             <Historic>
-                <Items>{userList.map((item, i) =>
-                        <ItemList key={i} item={item} total={total} setTotal={setTotal} />
-                )}</Items>
-                <Total total={total}>
-                    <p>Total</p>
-                    <p>{total}</p>
-                </Total>
+                {userList.length === 0 ?
+                    <TextContent><span>Não há registros de entrada ou saída</span></TextContent> :
+                    <Content>
+                        <Items>{userList.map((item, i) =>
+                            <ItemList key={i} item={item} total={total} setTotal={setTotal} />
+                        )}</Items>
+                        <Total total={total}>
+                            <p>Total</p>
+                            <p>{total}</p>
+                        </Total>
+                    </Content>}
             </Historic>
             <Register>
                 <Box onClick={() => navigate('/new-input')}>
@@ -101,11 +105,33 @@ const Historic = styled.div`
     padding: 15px;
     background-color: #FFFFFF;
     border-radius: 5px;
+`
+
+const Content = styled.div`
+    width: 100%;
+    height: 100%;
 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+`
+
+const TextContent = styled.div`
+    width: 100%;
+    height: 100%;
+
+    font-family: 'Raleway', sans-serif;
+    color: #737373;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & span {
+        font-size: 22px;
+        text-align: center;
+    }
 `
 
 const Items = styled.div`
