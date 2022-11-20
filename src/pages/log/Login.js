@@ -6,7 +6,7 @@ import { AuthContext } from "../../provider/auth";
 import { signIn } from "../../services/API";
 
 export default function Login() {
-    const [ login, setLogin ] = useState();
+    const [ login, setLogin ] = useState({email: '', password: ''});
     const [ send, setSend ] = useState(false);
 
     const { keepUserLogged } = useContext(AuthContext);
@@ -39,11 +39,13 @@ export default function Login() {
                 })
                 .catch(err => {
                     console.log(err)
+                    alert('Não foi possível fazer login, tente novamente')
                     document.location.reload();
                 })
         }
     }, [send]);
 
+    console.log(login)
 
     return (
         <Container>
