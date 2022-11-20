@@ -37,7 +37,9 @@ export default function Inputs() {
         event.preventDefault();
         if (newInput.title.length < 1 || newInput.value.length < 1) {
             alert('Campos Titulo e Valor precisam estar preenchidos');
-        } else{
+        } else if (!(Number(newInput.value) >= 0)) {
+            alert(`Campo Valor deve ser um número válido.\nuse "." no lugar de "," para números fracionados e não separe milhar por "."`)
+        } else {
             setSend(true);
         }
     }
