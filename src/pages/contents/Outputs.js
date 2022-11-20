@@ -35,7 +35,7 @@ export default function Outputs() {
 
     function submitThis(event) {
         event.preventDefault();
-        if (newInput.title.length < 1 || newInput.value.length < 1) {
+        if (newOutput.title.length < 1 || newOutput.value.length < 1) {
             alert('Campos Titulo e Valor precisam estar preenchidos');
         } else {
             setSend(true);
