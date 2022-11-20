@@ -36,7 +36,7 @@ function newOutput( token, body ) {
     const headers = {
         authorization: `Bearer ${token}`
     };
-    const promise = axios.post(`${BASE_URL}/new-output`, body, {headers});
+    const promise = axios.post(`${BASE_URL}/output`, body, {headers});
 
     return promise;
 }

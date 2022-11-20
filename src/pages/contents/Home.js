@@ -7,31 +7,24 @@ import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../provider/auth";
 import { historic } from "../../services/API";
-
-function List({ item, total, setTotal }) {
-    const newValue = Number(total) + Number(item.value);
-    setTotal(Number(newValue));
-    return(
-        <div>
-            <p>date</p>
-            <p>title</p>
-            <p>value</p>
-        </div>
-    )
-}
+import ItemList from "../../components/itemList";
 
 export default function Home() {
     const navigate = useNavigate();
     const { user } = useContext(AuthContext);
     const [ total, setTotal ] = useState(0);
-    const [ userList, setUserList ] = useState();
+    const [ userList, setUserList ] = useState(['oioi', 'tchau']);
     const log = JSON.parse(user)
-    console.log(log)
+
+    function logoff() {
+        localStorage.removeItem('log');
+        navigate('/')
+        document.location.reload()
+    }
 
     useEffect(() => {
         historic(log.token)
             .then(res => {
-                console.log(res.data);
                 setUserList(res.data);
             })
             .catch(err => {
@@ -39,21 +32,23 @@ export default function Home() {
             })
     }, []);
 
-
     return (
         <Container>
             <Header>
                 <h1>{`Olá, ${log.name}`}</h1>
-                <img src={exit} alt="exit-icon" />
+                <img src={exit} alt="exit-icon" 
+                onClick={() => {
+                   logoff() 
+                }} />
             </Header>
             <Historic>
-                {userList?.map((item, i) => {
-                    <List key={i} item={item} setTotal={setTotal} total={total}/>
-                })}
-                <div>
+                <Items>{userList.map((item, i) =>
+                        <ItemList key={i} item={item} total={total} setTotal={setTotal} />
+                )}</Items>
+                <Total total={total}>
                     <p>Total</p>
                     <p>{total}</p>
-                </div>
+                </Total>
             </Historic>
             <Register>
                 <Box onClick={() => navigate('/new-input')}>
@@ -103,8 +98,32 @@ const Header = styled.div`
 const Historic = styled.div`
     width: 80vw;
     height: 70vh;
+    padding: 15px;
     background-color: #FFFFFF;
     border-radius: 5px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+`
+
+const Items = styled.div`
+    width: 100%;
+    height: 90%;
+
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+`
+
+const Total = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    color: ${props => props.total < 0 ? 'red' : 'green'};
 `
 
 const Register = styled.div`

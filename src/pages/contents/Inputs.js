@@ -43,20 +43,6 @@ export default function Inputs() {
         <Container>
             <Title>Nova entrada</Title>
             <Form onSubmit={submitThis}>
-                <Input type={"text"} name={"value"} onChange=
-                    {(e) => saveInput({
-                            name: e.target.name,
-                            value: e.target.value
-                        })
-                    }
-                placeholder={"Valor"} />
-                <DescriptionInput type={"textarea"} name={"description"} onChange=
-                {(e) => saveInput({
-                        name: e.target.name,
-                        value: e.target.value
-                    })
-                }
-                placeholder={"Descrição"} />
                 <Input type={"text"} name={"title"} onChange=
                     {(e) => saveInput({
                             name: e.target.name,
@@ -64,6 +50,20 @@ export default function Inputs() {
                         })
                     }
                 placeholder={"Titulo"} />
+                <DescriptionInput type={"textarea"} name={"description"} onChange=
+                {(e) => saveInput({
+                        name: e.target.name,
+                        value: e.target.value
+                    })
+                }
+                placeholder={"Descrição"} />
+                <Input type={"text"} name={"value"} onChange=
+                    {(e) => saveInput({
+                            name: e.target.name,
+                            value: e.target.value
+                        })
+                    }
+                placeholder={"Valor"} />
                 <Button type={"submit"}>SALVAR ENTRADA</Button>
                 <Cancel onClick={() => navigate('/home')}>CANCELAR</Cancel>
             </Form>
