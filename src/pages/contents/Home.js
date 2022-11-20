@@ -14,7 +14,8 @@ export default function Home() {
     const { user } = useContext(AuthContext);
     const [ total, setTotal ] = useState(0);
     const [ userList, setUserList ] = useState(['oioi', 'tchau']);
-    const log = JSON.parse(user)
+    const log = JSON.parse(user);
+    let newValue = 0;
 
     function logoff() {
         localStorage.removeItem('log');
@@ -26,6 +27,10 @@ export default function Home() {
         historic(log.token)
             .then(res => {
                 setUserList(res.data);
+                res.data.forEach(item => {
+                    newValue = (Number(newValue)) + (Number(item.value.replace(',', '.')));
+                });
+                setTotal(newValue)
             })
             .catch(err => {
                 console.log(err)
@@ -46,11 +51,11 @@ export default function Home() {
                     <TextContent><span>Não há registros de entrada ou saída</span></TextContent> :
                     <Content>
                         <Items>{userList.map((item, i) =>
-                            <ItemList key={i} item={item} total={total} setTotal={setTotal} />
+                            <ItemList key={i} item={item}/>
                         )}</Items>
                         <Total total={total}>
                             <p>Total</p>
-                            <p>{total}</p>
+                            <p>{String(total).replace('.', ',')}</p>
                         </Total>
                     </Content>}
             </Historic>

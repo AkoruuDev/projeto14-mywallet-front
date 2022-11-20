@@ -1,14 +1,13 @@
 import styled from "styled-components"
 
-export default function ItemList({ item, total, setTotal }) {
-    const newValue = Number(total) + Number(item.value);
-    // setTotal(Number(newValue));
-    console.log(item)
+export default function ItemList({ item }) {
+    const money = String(item.value).replace('.', ',');
+    console.log(money)
     return(
         <Container isInput={item.isInput}>
             <Date>{item.date?.date}</Date>
             <Title>{item.title}</Title>
-            <Value>{item.value}</Value>
+            <Value>{money}</Value>
         </Container>
     )
 }
@@ -30,7 +29,7 @@ const Date = styled.p`
 
 const Title = styled.p`
     font-family: 'Raleway', sans-serif;
-    width: 70%;
+    width: calc(70% - 80px);
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -44,5 +43,7 @@ const Value = styled.p`
     position: absolute;
     right: 0;
     font-family: 'Raleway', sans-serif;
+    width: 80px;
+    text-align: right;
 `
 
