@@ -4,8 +4,8 @@ import styled from "styled-components";
 import { signUp } from "../../services/API";
 
 export default function Register() {
-    const [register, setRegister] = useState();
-    const [validate, setValidate] = useState();
+    const [register, setRegister] = useState({name: '', password: '', email: ''});
+    const [validate, setValidate] = useState({passwordConfirm: ''});
     const [send, setSend] = useState(false);
 
     const navigate = useNavigate();
@@ -26,10 +26,17 @@ export default function Register() {
 
     function submitThis(event) {
         event.preventDefault();
-        if (register.password === validate.passwordConfirm) {
-            setSend(true)
+        if (register.name.length < 1 || register.email.length < 1) {
+            alert('Todos os campos devem ser preenchidos')
+            window.location.reload()
+        } else if (register.password.length < 8) {
+            alert('A senha deve ter, no mínimo, 8 caracteres')
+            window.location.reload()
+        } else if (register.password !== validate.passwordConfirm) {
+            alert('As senhas não coincidem')
+            window.location.reload()
         } else {
-            console.log('Senhas erradas')
+            setSend(true)
         }
     }
 
@@ -46,6 +53,8 @@ export default function Register() {
                 })
         }
     }, [send]);
+
+    console.log(register)
 
     return (
         <Container>
