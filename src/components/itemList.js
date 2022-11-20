@@ -2,7 +2,6 @@ import styled from "styled-components"
 
 export default function ItemList({ item }) {
     const money = String(item.value).replace('.', ',');
-    console.log(money)
     return(
         <Container isInput={item.isInput}>
             <Date>{item.date?.date}</Date>
