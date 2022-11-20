@@ -25,10 +25,11 @@ export default function Home() {
     const { user } = useContext(AuthContext);
     const [ total, setTotal ] = useState(0);
     const [ userList, setUserList ] = useState();
-    console.log(user)
+    const log = JSON.parse(user)
+    console.log(log)
 
     useEffect(() => {
-        historic(user.token)
+        historic(log.token)
             .then(res => {
                 console.log(res.data);
                 setUserList(res.data);
@@ -42,7 +43,7 @@ export default function Home() {
     return (
         <Container>
             <Header>
-                <h1>{`Olá, ${user.name}`}</h1>
+                <h1>{`Olá, ${log.name}`}</h1>
                 <img src={exit} alt="exit-icon" />
             </Header>
             <Historic>

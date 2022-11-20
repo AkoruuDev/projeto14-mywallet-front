@@ -9,7 +9,7 @@ export default function Login() {
     const [ login, setLogin ] = useState();
     const [ send, setSend ] = useState(false);
 
-    const { user, setUser } = useContext(AuthContext);
+    const { keepUserLogged } = useContext(AuthContext);
 
     const navigate = useNavigate();
 
@@ -30,12 +30,11 @@ export default function Login() {
             signIn(login)
                 .then(res => {
                     console.log(res);
-                    setUser({
+                    keepUserLogged(JSON.stringify({
                         name: res.data.name,
                         email: res.data.email,
                         token: res.data.token
-                    })
-                    console.log(user)
+                    }))
                     navigate('/home');
                 })
                 .catch(err => {
@@ -45,7 +44,6 @@ export default function Login() {
         }
     }, [send]);
 
-    console.log(user)
 
     return (
         <Container>

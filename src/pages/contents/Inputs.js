@@ -9,10 +9,11 @@ export default function Inputs() {
     const [newInput, setNewInput] = useState({title: '', description: '', value: ''});
     const [send, setSend] = useState(false);
     const { user } = useContext(AuthContext);
+    const log = JSON.parse(user);
 
     useEffect(() => {
         if (send) {
-            sendRequest(user.token, newInput)
+            sendRequest(log.token, newInput)
                 .then(res => {
                     console.log(res)
                     navigate('/home')

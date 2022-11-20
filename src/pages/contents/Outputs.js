@@ -9,6 +9,7 @@ export default function Outputs() {
     const [newOutput, setNewOutput] = useState({});
     const [send, setSend] = useState(false);
     const { user } = useContext(AuthContext);
+    const log = JSON.parse(user);
 
     const navigate = useNavigate();
 
@@ -26,7 +27,7 @@ export default function Outputs() {
 
     useEffect(() => {
         if (send) {
-            sendRequest(user.token, newOutput)
+            sendRequest(log.token, newOutput)
                 .then(res => {
                     console.log(res)
                     navigate('/home')
