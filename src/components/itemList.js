@@ -3,29 +3,46 @@ import styled from "styled-components"
 export default function ItemList({ item, total, setTotal }) {
     const newValue = Number(total) + Number(item.value);
     // setTotal(Number(newValue));
+    console.log(item)
     return(
-        <EssaDIV isInput={item.isInput}>
-            <h4>{item.title}</h4>
-            <p>{item.value}</p>
-        </EssaDIV>
+        <Container isInput={item.isInput}>
+            <Date>{item.date?.date}</Date>
+            <Title>{item.title}</Title>
+            <Value>{item.value}</Value>
+        </Container>
     )
 }
 
-const EssaDIV = styled.div`
+const Container = styled.div`
     margin: 15px 0;
     height: 20px;
     color: ${props => (props.isInput ? 'green' : 'red')};
 
     display: flex;
     position: relative;
+`
 
-    & h4 {
-        font-family: 'Raleway', sans-serif;
-    }
+const Date = styled.p`
+    font-family: 'Raleway', sans-serif;
+    margin-right: 15px;
+    color: #737373;
+`
 
-    & p {
-        position: absolute;
-        right: 0;
-        font-family: 'Raleway', sans-serif;
+const Title = styled.p`
+    font-family: 'Raleway', sans-serif;
+    width: 70%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+
+    &::-webkit-scrollbar {
+        display: none;
     }
 `
+
+const Value = styled.p`
+    position: absolute;
+    right: 0;
+    font-family: 'Raleway', sans-serif;
+`
+
