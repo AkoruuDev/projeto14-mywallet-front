@@ -1,9 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components"
 
 export default function ItemList({ item }) {
     const money = String(item.value).replace('.', ',');
+    const navigate = useNavigate();
     return(
-        <Container isInput={item.isInput}>
+        <Container isInput={item.isInput} onClick={() => navigate(`/item/${item._id}`)}>
             <Date>{item.date?.date}</Date>
             <Title>{item.title}</Title>
             <Value>{money}</Value>

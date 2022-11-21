@@ -41,4 +41,14 @@ function newOutput( token, body ) {
     return promise;
 }
 
-export { signIn, signUp, historic, newInput, newOutput };
+function getItem(ITEM_ID) {
+    const body = {
+        id: ITEM_ID
+    }
+    console.log(body)
+    const promise = axios.get(`${BASE_URL}/get-item`, body);
+
+    return promise;
+}
+
+export { signIn, signUp, historic, newInput, newOutput, getItem };

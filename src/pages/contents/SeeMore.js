@@ -1,6 +1,22 @@
+import { useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
 import styled from "styled-components"
+import { getItem } from "../../services/API";
 
 export default function SeeMore() {
+    const { ITEM_ID } = useParams()
+    const [id] = useState({id: ITEM_ID})
+
+    useEffect(() => {
+        getItem(id)
+            .then(res => {
+                console.log(res)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }, []);
+
     return(
         <Container>
             <Content isInput={false}>
