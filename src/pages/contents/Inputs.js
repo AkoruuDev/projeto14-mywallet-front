@@ -15,11 +15,10 @@ export default function Inputs() {
         if (send) {
             sendRequest(log.token, newInput)
                 .then(res => {
-                    console.log(res)
                     navigate('/home')
                 })
                 .catch(err => {
-                    console.log(err)
+                    alert('Não foi possível enviar sua Entrada')
                 })
         }
     }, [send]);
@@ -44,8 +43,6 @@ export default function Inputs() {
         }
     }
 
-    console.log(newInput)
-    console.log(newInput)
     return (
         <Container>
             <Title>Nova entrada</Title>

@@ -29,7 +29,6 @@ export default function Login() {
         if (send) {
             signIn(login)
                 .then(res => {
-                    console.log(res);
                     keepUserLogged(JSON.stringify({
                         name: res.data.name,
                         email: res.data.email,
@@ -38,14 +37,11 @@ export default function Login() {
                     navigate('/home');
                 })
                 .catch(err => {
-                    console.log(err)
                     alert('Não foi possível fazer login, tente novamente\nAlgumas coisas podem ter acontecido\nErro no servidor\nEmail não cadastrado (faça um cadastro)')
                     document.location.reload();
                 })
         }
     }, [send]);
-
-    console.log(login)
 
     return (
         <Container>

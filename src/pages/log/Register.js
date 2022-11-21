@@ -44,18 +44,14 @@ export default function Register() {
         if (send) {
             signUp(register)
                 .then(res => {
-                    console.log(res);
                     navigate('/')
                 })
                 .catch(err => {
-                    console.log(err);
                     alert(`Não foi possivel fazer o cadastro\nAlgumas coisas podem ter acontecido\nErro no servidor\nEmail já cadastrado (Tente outro)`)
                     document.location.reload()
                 })
         }
     }, [send]);
-
-    console.log(register)
 
     return (
         <Container>

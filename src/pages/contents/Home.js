@@ -33,7 +33,7 @@ export default function Home() {
                 setTotal(newValue)
             })
             .catch(err => {
-                console.log(err)
+                alert('Não foi possível encontrar sua carteira');
             })
     }, []);
 

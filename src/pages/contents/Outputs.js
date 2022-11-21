@@ -15,11 +15,10 @@ export default function Outputs() {
         if (send) {
             sendRequest(log.token, newOutput)
                 .then(res => {
-                    console.log(res)
                     navigate('/home')
                 })
                 .catch(err => {
-                    console.log(err)
+                    alert('Não foi possível enviar sua Saida')
                 })
         }
     }, [send]);
@@ -44,7 +43,6 @@ export default function Outputs() {
         }
     }
 
-    console.log(newOutput)
     return (
         <Container>
             <Title>Nova saída</Title>
