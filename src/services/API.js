@@ -42,11 +42,7 @@ function newOutput( token, body ) {
 }
 
 function getItem(ITEM_ID) {
-    const body = {
-        id: ITEM_ID
-    }
-    console.log(body)
-    const promise = axios.get(`${BASE_URL}/get-item`, body);
+    const promise = axios.get(`${BASE_URL}/get-item/${ITEM_ID}`);
 
     return promise;
 }

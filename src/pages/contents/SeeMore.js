@@ -1,30 +1,47 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import styled from "styled-components"
 import { getItem } from "../../services/API";
 
 export default function SeeMore() {
     const { ITEM_ID } = useParams()
-    const [id] = useState({id: ITEM_ID})
+    const [user, setUser] = useState()
+    const navigate = useNavigate()
 
     useEffect(() => {
-        getItem(id)
+        getItem(ITEM_ID)
             .then(res => {
-                console.log(res)
+                console.log(res.data[0])
+                setUser(res.data[0])
             })
             .catch(err => {
                 console.log(err)
             })
     }, []);
 
+    if (!user) {
+        return(
+            <Container>Loading</Container>
+        )
+    }
+
     return(
         <Container>
-            <Content isInput={false}>
-                <Header>Titulo do bag</Header>
-                <Value>Preço</Value>
-            </Content>
-            <Description>Bla bla bla (Ou nada)</Description>
-            <Button>Voltar</Button>
+            <Header>
+                <Content isInput={user.isInput}>
+                    <Title>{user.title}</Title>
+                    <Value>{user.value}</Value>
+                </Content>
+                <Date>
+                    <span>{`${user.date.weekDay}, ${user.date.fullDate}`}</span>
+                    <span>{`${user.date.time}`}</span>
+                </Date>
+            </Header>
+            <>{user.description.length > 0 ?
+                <Description>{user.description}</Description> :
+                <NonDescription>Este item não tem descrição</NonDescription>
+            }</>
+            <Button onClick={() => navigate('/home')}>Voltar</Button>
         </Container>
     )
 }
@@ -41,10 +58,15 @@ const Container = styled.div`
     align-items: center;
 `
 
-const Content = styled.div`
+const Header = styled.div`
     width: 75vw;
-    padding: 4px 0;
-    background-color: green;
+    padding: 8px 12px;
+    border-radius: 5px;
+    background-color: #e9e9e9;
+`
+
+const Content = styled.div`
+    width: 100%;
 
     display: flex;
     justify-content: space-between;
@@ -52,10 +74,14 @@ const Content = styled.div`
     font-weight: 700;
 `
 
-const Header = styled.div`
+const Date = styled(Content)`
+    margin-top: 12px;
+    color: #737373;
+`
+
+const Title = styled.div`
     width: 70%;
     font-size: 20px;
-    background-color: aqua;
     display: flex;
     flex-wrap: wrap;
     font-family: 'Raleway', sans-serif;
@@ -70,7 +96,9 @@ const Description = styled.div`
     font-family: 'Raleway', sans-serif;
     height: 70vh;
     width: 75vw;
-    background-color: wheat;
+    padding: 15px;
+    background-color: #e9e9e9;
+    border-radius: 5px;
     display: flex;
     flex-wrap: wrap;
     overflow-y: auto;
@@ -78,6 +106,13 @@ const Description = styled.div`
     &::-webkit-scrollbar {
         display: none;
     }
+`
+
+const NonDescription = styled(Description)`
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    color: #737373;
 `
 
 const Button = styled.div`
