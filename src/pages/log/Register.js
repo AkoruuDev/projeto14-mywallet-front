@@ -49,6 +49,7 @@ export default function Register() {
                 })
                 .catch(err => {
                     console.log(err);
+                    alert(`Não foi possivel fazer o cadastro\nAlgumas coisas podem ter acontecido\nErro no servidor\nEmail já cadastrado (Tente outro)`)
                     document.location.reload()
                 })
         }

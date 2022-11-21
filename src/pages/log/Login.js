@@ -39,7 +39,7 @@ export default function Login() {
                 })
                 .catch(err => {
                     console.log(err)
-                    alert('Não foi possível fazer login, tente novamente')
+                    alert('Não foi possível fazer login, tente novamente\nAlgumas coisas podem ter acontecido\nErro no servidor\nEmail não cadastrado (faça um cadastro)')
                     document.location.reload();
                 })
         }
